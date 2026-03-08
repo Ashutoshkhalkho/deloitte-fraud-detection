@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deloitte · Financial Fraud Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:    #ffffff;
+  --off:      #f7f8fc;
+  --off2:     #f0f2f8;
+  --border:   #e2e6f0;
+  --border2:  #cdd3e4;
+  --muted:    #8b96b0;
+  --sub:      #5a6480;
+  --body:     #2d3550;
+  --head:     #0f1524;
+  --green:    #00875a;
+  --green-l:  #e3f5ef;
+  --green-m:  #b8e8d8;
+  --red:      #c0392b;
+  --red-l:    #fdecea;
+  --amber:    #b45309;
+  --amber-l:  #fef3e2;
+  --blue:     #1a56db;
+  --blue-l:   #eef2ff;
+  --indigo:   #3730a3;
+  --slate:    #334155;
+  --acc:      #006644;
+  --acc2:     #004d33;
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--off);
+  color:var(--body);
+  font-family:'Outfit',sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* ════════════════════════════════
+   TOP NAV
+════════════════════════════════ */
+.topnav{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.nav-brand{display:flex;align-items:center;gap:14px}
+.nav-logo{
+  background:var(--head);
+  color:#fff;
+  font-family:'DM Serif Display',serif;
+  font-size:13px;letter-spacing:.5px;
+  padding:6px 12px;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-logo .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#86efac;
+  box-shadow:0 0 6px #86efac;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-title{
+  font-size:13px;font-weight:500;color:var(--sub);
+  letter-spacing:.3px;
+}
+.nav-title strong{color:var(--head);font-weight:600}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-badge{
+  background:var(--red-l);
+  color:var(--red);
+  border:1px solid rgba(192,57,43,.2);
+  font-size:11px;font-weight:600;
+  padding:4px 12px;letter-spacing:.3px;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--red);animation:pulse 1.5s infinite;
+}
+.nav-meta{
+  font-family:'Fira Code',monospace;
+  font-size:11px;color:var(--muted);
+}
+
+/* ════════════════════════════════
+   ALERT RIBBON
+════════════════════════════════ */
+.ribbon{
+  background:linear-gradient(135deg,#7f1d1d,#991b1b);
+  color:#fecaca;
+  padding:10px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;font-weight:500;letter-spacing:.3px;
+}
+.ribbon-left{display:flex;align-items:center;gap:10px}
+.ribbon-icon{font-size:14px}
+.ribbon-right{
+  font-family:'Fira Code',monospace;font-size:11px;
+  color:#fca5a5;letter-spacing:.5px;
+}
+
+/* ════════════════════════════════
+   PAGE SHELL
+════════════════════════════════ */
+.shell{max-width:1400px;margin:0 auto;padding:36px 40px 72px}
+
+/* ════════════════════════════════
+   PAGE HEADER BLOCK
+════════════════════════════════ */
+.page-header{
+  background:var(--white);
+  border:1px solid var(--border);
+  padding:32px 36px;
+  margin-bottom:28px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:24px;align-items:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.ph-eyebrow{
+  font-family:'Fira Code',monospace;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--acc);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.ph-eyebrow::before{content:'';width:20px;height:1px;background:var(--acc)}
+.ph-title{
+  font-family:'DM Serif Display',serif;
+  font-size:28px;color:var(--head);
+  line-height:1.15;letter-spacing:-.3px;
+  margin-bottom:10px;
+}
+.ph-title em{color:var(--acc);font-style:italic}
+.ph-desc{
+  font-size:13px;color:var(--sub);
+  max-width:520px;line-height:1.7;
+}
+.ph-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.skill-chip{
+  font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;
+  padding:4px 11px;
+  border:1px solid var(--border2);
+  color:var(--sub);background:var(--off);
+  transition:all .15s;
+}
+.skill-chip:hover{border-color:var(--acc);color:var(--acc)}
+.ph-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.ph-stat{text-align:right}
+.ph-stat-val{
+  font-family:'DM Serif Display',serif;
+  font-size:42px;color:var(--head);line-height:1;
+}
+.ph-stat-val span{font-size:20px;color:var(--acc)}
+.ph-stat-lbl{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+.ph-divider{width:1px;height:50px;background:var(--border);align-self:center}
+.ph-stats-row{display:flex;align-items:center;gap:20px}
+
+/* ════════════════════════════════
+   SECTION LABELS
+════════════════════════════════ */
+.section-row{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:16px;
+}
+.section-num{
+  font-family:'Fira Code',monospace;
+  font-size:10px;color:var(--muted);letter-spacing:1px;
+}
+.section-name{
+  font-size:13px;font-weight:600;color:var(--head);letter-spacing:.3px;
+}
+.section-line{flex:1;height:1px;background:var(--border)}
+.section-tag{
+  font-family:'Fira Code',monospace;
+  font-size:10px;color:var(--muted);
+  padding:2px 8px;border:1px solid var(--border);
+}
+
+/* ════════════════════════════════
+   KPI STRIP
+════════════════════════════════ */
+.kpi-strip{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  border:1px solid var(--border);
+  background:var(--border);
+  gap:1px;
+  margin-bottom:28px;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.kpi{
+  background:var(--white);
+  padding:20px 18px 18px;
+  position:relative;
+  transition:background .15s;
+}
+.kpi:hover{background:var(--off)}
+.kpi-bar{
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--border2);
+}
+.kpi.red .kpi-bar{background:var(--red)}
+.kpi.amber .kpi-bar{background:var(--amber)}
+.kpi.green .kpi-bar{background:var(--green)}
+.kpi.blue .kpi-bar{background:var(--blue)}
+.kpi.indigo .kpi-bar{background:var(--indigo)}
+.kpi-label{
+  font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.kpi-value{
+  font-family:'DM Serif Display',serif;
+  font-size:26px;color:var(--head);
+  line-height:1;margin-bottom:5px;
+}
+.kpi-sub{font-size:11px;color:var(--muted)}
+.kpi.red .kpi-value{color:var(--red)}
+.kpi.amber .kpi-value{color:var(--amber)}
+.kpi.green .kpi-value{color:var(--green)}
+
+/* ════════════════════════════════
+   GRID LAYOUTS
+════════════════════════════════ */
+.grid-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;margin-bottom:28px}
+.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-bottom:28px}
+.grid-2r{display:grid;grid-template-columns:1fr 1.4fr;gap:20px;margin-bottom:28px}
+
+/* ════════════════════════════════
+   CARDS
+════════════════════════════════ */
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.card-head{
+  padding:16px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-title{font-size:13px;font-weight:600;color:var(--head)}
+.card-sub{
+  font-family:'Fira Code',monospace;
+  font-size:10px;color:var(--muted);
+}
+.card-body{padding:20px}
+.card-body.np{padding:0}
+
+/* ════════════════════════════════
+   CHARTS
+════════════════════════════════ */
+svg.chart{width:100%;display:block}
+.ax-line{stroke:var(--border2);stroke-width:1}
+.grid-line{stroke:var(--border);stroke-width:1;stroke-dasharray:4 3}
+.ax-label{font-family:'Fira Code',monospace;font-size:9px;fill:var(--muted)}
+.bar-safe{fill:var(--green-l);stroke:var(--green-m);stroke-width:1}
+.bar-flag{fill:#fee2e2;stroke:#fca5a5;stroke-width:1}
+.bar-safe:hover{fill:var(--green-m)}
+.bar-flag:hover{fill:#fca5a5}
+
+/* ════════════════════════════════
+   DONUT
+════════════════════════════════ */
+.donut-container{
+  display:flex;align-items:center;
+  gap:24px;padding:8px 0;
+}
+svg.donut{flex-shrink:0}
+.donut-legend{display:flex;flex-direction:column;gap:12px;flex:1}
+.dl-item{display:flex;align-items:center;gap:10px}
+.dl-swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.dl-info{flex:1}
+.dl-name{font-size:12px;font-weight:500;color:var(--body)}
+.dl-count{
+  font-family:'Fira Code',monospace;
+  font-size:13px;font-weight:500;color:var(--head);
+}
+.dl-pct{font-size:10px;color:var(--muted)}
+
+/* ════════════════════════════════
+   METRIC TILES
+════════════════════════════════ */
+.metric-4{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);background:var(--border);
+  gap:1px;margin-bottom:28px;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.metric-tile{
+  background:var(--white);
+  padding:24px 20px;
+  text-align:center;
+}
+.mt-label{
+  font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;
+}
+.mt-value{
+  font-family:'DM Serif Display',serif;
+  font-size:36px;color:var(--head);line-height:1;margin-bottom:6px;
+}
+.mt-desc{font-size:11px;color:var(--muted)}
+.mt-value.green{color:var(--green)}
+.mt-value.blue{color:var(--blue)}
+.mt-value.amber{color:var(--amber)}
+.mt-value.indigo{color:var(--indigo)}
+
+/* ════════════════════════════════
+   CONFUSION MATRIX
+════════════════════════════════ */
+.cm-wrap{padding:16px}
+.cm-axis-label{
+  font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  color:var(--muted);text-align:center;margin-bottom:8px;
+}
+.cm-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cm-cell{
+  padding:18px 12px;text-align:center;border-radius:2px;
+}
+.cm-cell-label{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.cm-cell-val{
+  font-family:'DM Serif Display',serif;
+  font-size:32px;line-height:1;
+}
+.cm-cell-desc{font-size:10px;margin-top:4px}
+.cm-tp{background:var(--green-l)} .cm-tp .cm-cell-label{color:var(--green)} .cm-tp .cm-cell-val{color:var(--green)} .cm-tp .cm-cell-desc{color:#6b9e8a}
+.cm-fp{background:var(--red-l)}   .cm-fp .cm-cell-label{color:var(--red)}   .cm-fp .cm-cell-val{color:var(--red)}   .cm-fp .cm-cell-desc{color:#b07070}
+.cm-fn{background:var(--amber-l)} .cm-fn .cm-cell-label{color:var(--amber)} .cm-fn .cm-cell-val{color:var(--amber)} .cm-fn .cm-cell-desc{color:#a08040}
+.cm-tn{background:var(--blue-l)}  .cm-tn .cm-cell-label{color:var(--blue)}  .cm-tn .cm-cell-val{color:var(--blue)}  .cm-tn .cm-cell-desc{color:#6080c0}
+
+/* ════════════════════════════════
+   RULE ENGINE
+════════════════════════════════ */
+.rule-rows{display:flex;flex-direction:column}
+.rule-item{
+  display:grid;
+  grid-template-columns:36px 1fr 80px 48px;
+  align-items:center;gap:14px;
+  padding:12px 20px;
+  border-bottom:1px solid var(--border);
+  transition:background .15s;
+}
+.rule-item:last-child{border-bottom:none}
+.rule-item:hover{background:var(--off)}
+.rule-id{
+  font-family:'Fira Code',monospace;
+  font-size:10px;font-weight:500;color:var(--acc);
+  letter-spacing:.5px;
+}
+.rule-desc{font-size:12px;color:var(--body)}
+.rule-bar-wrap{height:5px;background:var(--off2);border-radius:2px;overflow:hidden}
+.rule-bar-inner{
+  height:100%;border-radius:2px;
+  background:linear-gradient(to right,var(--acc),#2dd4bf);
+  transition:width .8s ease;
+}
+.rule-count-val{
+  font-family:'Fira Code',monospace;
+  font-size:12px;font-weight:500;color:var(--head);
+  text-align:right;
+}
+
+/* ════════════════════════════════
+   TRANSACTIONS TABLE
+════════════════════════════════ */
+.txn-table{width:100%;border-collapse:collapse}
+.txn-table thead tr{background:var(--off);border-bottom:2px solid var(--border2)}
+.txn-table th{
+  padding:11px 14px;text-align:left;
+  font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  color:var(--sub);white-space:nowrap;
+}
+.txn-table td{
+  padding:11px 14px;
+  font-size:12px;color:var(--body);
+  border-bottom:1px solid var(--border);
+}
+.txn-table tbody tr:hover td{background:var(--off)}
+.txn-table tbody tr:last-child td{border-bottom:none}
+.td-mono{font-family:'Fira Code',monospace;font-size:11px}
+.td-bold{font-weight:600;color:var(--head)}
+
+/* Risk badges */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;font-size:10px;font-weight:600;
+  letter-spacing:.5px;text-transform:uppercase;border-radius:2px;
+}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%}
+.b-critical{background:var(--red-l);color:var(--red)}      .b-critical::before{background:var(--red)}
+.b-high{background:#fff3e0;color:#c05621}                   .b-high::before{background:#c05621}
+.b-medium{background:var(--amber-l);color:var(--amber)}     .b-medium::before{background:var(--amber)}
+.b-low{background:var(--green-l);color:var(--green)}        .b-low::before{background:var(--green)}
+
+/* Flag tags */
+.flag-row{display:flex;gap:4px;flex-wrap:wrap}
+.flag{
+  font-family:'Fira Code',monospace;
+  font-size:9px;padding:1px 6px;
+  background:var(--amber-l);color:var(--amber);
+  border:1px solid rgba(180,83,9,.2);letter-spacing:.5px;
+}
+
+/* ════════════════════════════════
+   SCORE BAR (inline in table)
+════════════════════════════════ */
+.score-cell{display:flex;align-items:center;gap:8px}
+.score-num{
+  font-family:'Fira Code',monospace;font-size:12px;
+  font-weight:500;color:var(--head);min-width:26px;
+}
+.score-bar{height:4px;flex:1;background:var(--off2);border-radius:2px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--acc),#f59e0b)}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+footer{
+  background:var(--white);
+  border-top:1px solid var(--border);
+  padding:20px 40px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.foot-l{font-size:12px;color:var(--muted)}
+.foot-l strong{color:var(--head);font-weight:600}
+.foot-l span{color:var(--acc)}
+.foot-r{
+  font-family:'Fira Code',monospace;
+  font-size:10px;color:var(--muted);letter-spacing:.5px;
+}
+
+/* ════════════════════════════════
+   ANIMATIONS
+════════════════════════════════ */
+.fade{opacity:0;transform:translateY(14px);animation:fadeUp .5s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.18s}
+.d4{animation-delay:.24s}.d5{animation-delay:.30s}.d6{animation-delay:.36s}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media(max-width:1100px){
+  .kpi-strip,.metric-4{grid-template-columns:repeat(3,1fr)}
+  .grid-3,.grid-2,.grid-2r{grid-template-columns:1fr}
+  .shell,.topnav,footer,.ribbon{padding-left:20px;padding-right:20px}
+  .page-header{grid-template-columns:1fr}
+  .ph-right{align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-brand">
+    <div class="nav-logo"><div class="dot"></div>Deloitte.</div>
+    <div class="nav-title"><strong>Forensic Technology</strong> · Financial Intelligence Platform</div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-badge" id="navBadge"></div>
+    <div class="nav-meta" id="navDate"></div>
+  </div>
+</nav>
+
+<!-- ALERT RIBBON -->
+<div class="ribbon">
+  <div class="ribbon-left">
+    <span class="ribbon-icon">⚠</span>
+    <span id="ribbonText"></span>
+  </div>
+  <div class="ribbon-right" id="ribbonRight"></div>
+</div>
+
+<div class="shell">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header fade">
+    <div>
+      <div class="ph-eyebrow">Forensic Data Analytics · Case Report</div>
+      <div class="ph-title">Financial Fraud <em>Detection</em> &amp; Investigation</div>
+      <div class="ph-desc">A rule-based and statistical fraud intelligence system analysing transaction patterns, anomalous behaviour, and risk stratification across 500 financial records — built to demonstrate real-world forensic analytics capability.</div>
+      <div class="ph-skills" id="phSkills"></div>
+    </div>
+    <div class="ph-right">
+      <div class="ph-stats-row">
+        <div class="ph-stat">
+          <div class="ph-stat-val" id="phTotal">—<span>txns</span></div>
+          <div class="ph-stat-lbl">Dataset Size</div>
+        </div>
+        <div class="ph-divider"></div>
+        <div class="ph-stat">
+          <div class="ph-stat-val" id="phFraud" style="color:var(--red)">—<span>%</span></div>
+          <div class="ph-stat-lbl">Fraud Rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI STRIP -->
+  <div class="section-row fade d1">
+    <span class="section-num">01 ·</span>
+    <span class="section-name">Executive Summary</span>
+    <div class="section-line"></div>
+    <span class="section-tag">Overview Metrics</span>
+  </div>
+  <div class="kpi-strip fade d2" id="kpiStrip"></div>
+
+  <!-- CHARTS ROW -->
+  <div class="section-row fade d2">
+    <span class="section-num">02 ·</span>
+    <span class="section-name">Transaction Distribution Analysis</span>
+    <div class="section-line"></div>
+    <span class="section-tag">Visual Exploration</span>
+  </div>
+  <div class="grid-3 fade d3">
+    <!-- Bar chart -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Amount Distribution by Bucket</span>
+        <span class="card-sub">Safe vs. Flagged</span>
+      </div>
+      <div class="card-body">
+        <svg class="chart" id="barSvg" viewBox="0 0 480 200" preserveAspectRatio="xMidYMid meet"></svg>
+        <div style="display:flex;gap:16px;margin-top:12px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:12px;height:12px;background:var(--green-l);border:1px solid var(--green-m)"></div>Safe Transactions</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)"><div style="width:12px;height:12px;background:#fee2e2;border:1px solid #fca5a5"></div>Flagged Transactions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Donut -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Risk Level Breakdown</span>
+        <span class="card-sub">All 500 Transactions</span>
+      </div>
+      <div class="card-body" style="padding:16px 20px">
+        <div class="donut-container">
+          <svg class="donut" width="130" height="130" viewBox="0 0 130 130" id="donutSvg"></svg>
+          <div class="donut-legend" id="donutLeg"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini stats -->
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Amount Statistics</span>
+        <span class="card-sub">Descriptive Analytics</span>
+      </div>
+      <div class="card-body np">
+        <div id="miniStats" style="display:flex;flex-direction:column"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODEL METRICS -->
+  <div class="section-row fade d3">
+    <span class="section-num">03 ·</span>
+    <span class="section-name">Model Performance Evaluation</span>
+    <div class="section-line"></div>
+    <span class="section-tag">Precision · Recall · F1 · Accuracy</span>
+  </div>
+  <div class="metric-4 fade d4" id="metric4"></div>
+
+  <!-- CONFUSION + RULES -->
+  <div class="grid-2r fade d4">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Rule Engine Trigger Frequency</span>
+        <span class="card-sub">7 Detection Rules · Weighted Scoring</span>
+      </div>
+      <div class="card-body np">
+        <div class="rule-rows" id="ruleRows"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Confusion Matrix</span>
+        <span class="card-sub">Ground Truth vs. Predicted Labels</span>
+      </div>
+      <div class="cm-wrap">
+        <div class="cm-axis-label">Predicted →</div>
+        <div class="cm-grid" id="cmGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSACTIONS TABLE -->
+  <div class="section-row fade d5">
+    <span class="section-num">04 ·</span>
+    <span class="section-name">Critical Transaction Log</span>
+    <div class="section-line"></div>
+    <span class="section-tag">Top 15 · Ranked by Fraud Score</span>
+  </div>
+  <div class="card fade d6" style="margin-bottom:0;overflow:hidden">
+    <div class="card-head">
+      <span class="card-title">High &amp; Critical Risk Transactions · Forensic Detail View</span>
+      <span class="card-sub">Rule Engine Output · Real-time Scoring</span>
+    </div>
+    <div class="card-body np" style="overflow-x:auto">
+      <table class="txn-table">
+        <thead><tr>
+          <th>Transaction ID</th><th>Date</th><th>Amount (₹)</th>
+          <th>Merchant</th><th>Location</th><th>Category</th>
+          <th>Fraud Score</th><th>Risk Level</th><th>Triggered Rules</th>
+        </tr></thead>
+        <tbody id="txnBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<footer>
+  <div class="foot-l">
+    Prepared by <strong>Ashutosh Khalkho</strong> ·
+    <span>Deloitte Data Analytics Job Simulation</span> ·
+    Forensic Technology Division
+  </div>
+  <div class="foot-r">CONFIDENTIAL · INTERNAL USE ONLY · <span style="color:var(--acc)">2026</span></div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════
+   SEEDED RNG
+═══════════════════════════════════════ */
+function mkRng(seed){
+  let s=seed>>>0;
+  return()=>{s=Math.imul(1664525,s)+1013904223>>>0;return s/0xFFFFFFFF};
+}
+
+/* ═══════════════════════════════════════
+   DATA GENERATION
+═══════════════════════════════════════ */
+const MERCHANTS=['Amazon','Walmart','Zomato','Swiggy','Flipkart','Unknown_Vendor','Shell','HDFC ATM','Airtel','BookMyShow'];
+const LOCATIONS=['Mumbai','Delhi','Bangalore','Chennai','Hyderabad','Unknown','Foreign_IP','Kolkata','Pune','Jaipur'];
+const CATEGORIES=['E-Commerce','Food','ATM','Fuel','Telecom','Entertainment','Unknown','International'];
+
+function generateData(n=500,seed=42){
+  const r=mkRng(seed);
+  return Array.from({length:n},(_,i)=>{
+    const fraud=r()<0.08;
+    const hour=fraud?[0,1,2,3,23][Math.floor(r()*5)]:7+Math.floor(r()*16);
+    const base=new Date('2024-01-01');
+    base.setDate(base.getDate()+Math.floor(r()*364));
+    base.setHours(hour,Math.floor(r()*60));
+    return{
+      id:`TXN${100000+i}`,
+      date:base.toISOString().slice(0,10),
+      amount:fraud?+(5000+r()*90000).toFixed(2):+(50+r()*7950).toFixed(2),
+      merchant:fraud?['Unknown_Vendor','Foreign_IP','Zomato','Amazon'][Math.floor(r()*4)]:MERCHANTS[Math.floor(r()*8)],
+      location:fraud?['Unknown','Foreign_IP'][Math.floor(r()*2)]:LOCATIONS[Math.floor(r()*8)],
+      category:fraud?['Unknown','International'][Math.floor(r()*2)]:CATEGORIES[Math.floor(r()*6)],
+      hour, vel:fraud?5+Math.floor(r()*16):1+Math.floor(r()*4),
+      isFraud:fraud
+    };
+  });
+}
+
+const RULES={
+  R01:{desc:'High amount transaction (> ₹50,000)',w:30},
+  R02:{desc:'Suspicious or unknown merchant',w:25},
+  R03:{desc:'Foreign or unverified location',w:20},
+  R04:{desc:'Late-night transaction (12 AM – 5 AM)',w:20},
+  R05:{desc:'High velocity (> 5 txns per hour)',w:25},
+  R06:{desc:'International / unknown category',w:15},
+  R07:{desc:'Round-figure amount (structuring signal)',w:10},
+};
+
+function scoreOne(t){
+  const flags=[];
+  if(t.amount>50000)                              flags.push('R01');
+  if(['Unknown_Vendor','Foreign_IP'].includes(t.merchant)) flags.push('R02');
+  if(['Unknown','Foreign_IP'].includes(t.location))        flags.push('R03');
+  if([0,1,2,3,4,23].includes(t.hour))            flags.push('R04');
+  if(t.vel>5)                                     flags.push('R05');
+  if(['International','Unknown'].includes(t.category))     flags.push('R06');
+  if(t.amount%1000===0)                           flags.push('R07');
+  const score=flags.reduce((s,f)=>s+RULES[f].w,0);
+  const risk=score>=60?'CRITICAL':score>=40?'HIGH':score>=20?'MEDIUM':'LOW';
+  return{...t,score,flags,risk};
+}
+
+/* ═══════════════════════════════════════
+   COMPUTE
+═══════════════════════════════════════ */
+const raw=generateData(500,42);
+const scored=raw.map(scoreOne);
+
+const byCat={CRITICAL:scored.filter(t=>t.risk==='CRITICAL'),HIGH:scored.filter(t=>t.risk==='HIGH'),MEDIUM:scored.filter(t=>t.risk==='MEDIUM'),LOW:scored.filter(t=>t.risk==='LOW')};
+const flagged=[...byCat.CRITICAL,...byCat.HIGH];
+const amounts=scored.map(t=>t.amount);
+const mean=amounts.reduce((a,b)=>a+b,0)/amounts.length;
+const std=Math.sqrt(amounts.reduce((s,v)=>s+(v-mean)**2,0)/amounts.length);
+const sorted=[...amounts].sort((a,b)=>a-b);
+const median=sorted[Math.floor(sorted.length/2)];
+const totalAmt=amounts.reduce((a,b)=>a+b,0);
+const flagAmt=flagged.reduce((s,t)=>s+t.amount,0);
+
+const tp=scored.filter(t=>['CRITICAL','HIGH'].includes(t.risk)&&t.isFraud).length;
+const fp=scored.filter(t=>['CRITICAL','HIGH'].includes(t.risk)&&!t.isFraud).length;
+const fn=scored.filter(t=>!['CRITICAL','HIGH'].includes(t.risk)&&t.isFraud).length;
+const tn=scored.filter(t=>!['CRITICAL','HIGH'].includes(t.risk)&&!t.isFraud).length;
+const prec=(tp/(tp+fp)*100).toFixed(1);
+const rec=(tp/(tp+fn)*100).toFixed(1);
+const f1=(2*tp/(2*tp+fp+fn)*100).toFixed(1);
+const acc=((tp+tn)/500*100).toFixed(1);
+
+const ruleCounts={};
+scored.forEach(t=>t.flags.forEach(f=>ruleCounts[f]=(ruleCounts[f]||0)+1));
+const maxRule=Math.max(...Object.values(ruleCounts));
+
+/* ═══════════════════════════════════════
+   RENDER HELPERS
+═══════════════════════════════════════ */
+const fmt=n=>n.toLocaleString('en-IN',{maximumFractionDigits:0});
+const fmtAmt=n=>'₹'+fmt(n);
+
+// Nav
+document.getElementById('navDate').textContent=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+document.getElementById('navBadge').innerHTML=`${byCat.CRITICAL.length} Critical Alerts`;
+document.getElementById('ribbonText').textContent=`ACTIVE ALERT — ${byCat.CRITICAL.length} critical-risk transactions identified requiring immediate compliance review`;
+document.getElementById('ribbonRight').textContent=`CASE REF: DLT-FRAUD-2024-0042 · ANALYST: ASHUTOSH KHALKHO`;
+
+// Page header
+document.getElementById('phTotal').innerHTML=`500<span> txns</span>`;
+document.getElementById('phFraud').innerHTML=`${(flagged.length/500*100).toFixed(1)}<span>%</span>`;
+['Python Programming','Data Analysis','Data Modeling','Log Analysis','Statistics','Data Visualization','Web Security','Formal Communication','Planning','Spreadsheets']
+  .forEach(s=>document.getElementById('phSkills').insertAdjacentHTML('beforeend',`<span class="skill-chip">${s}</span>`));
+
+// KPI strip
+[
+  {l:'Total Transactions',v:'500',s:'Full dataset',c:''},
+  {l:'Critical Risk',v:byCat.CRITICAL.length,s:'Immediate action required',c:'red'},
+  {l:'High Risk',v:byCat.HIGH.length,s:'Escalation review',c:'amber'},
+  {l:'Medium Risk',v:byCat.MEDIUM.length,s:'Monitor closely',c:''},
+  {l:'Value at Risk',v:fmtAmt(flagAmt),s:'Flagged txn value',c:'red'},
+  {l:'Detection Accuracy',v:`${acc}%`,s:'Rule engine performance',c:'green'},
+].forEach(k=>{
+  document.getElementById('kpiStrip').insertAdjacentHTML('beforeend',
+    `<div class="kpi ${k.c}"><div class="kpi-bar"></div><div class="kpi-label">${k.l}</div><div class="kpi-value">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`);
+});
+
+/* ═══════════════════════════════════════
+   BAR CHART
+═══════════════════════════════════════ */
+(()=>{
+  const W=480,H=200,PL=44,PR=10,PT=10,PB=32;
+  const buckets=[0,2000,5000,10000,20000,50000,Infinity];
+  const labels=['₹0–2K','₹2–5K','₹5–10K','₹10–20K','₹20–50K','₹50K+'];
+  const safe=new Array(6).fill(0),flag=new Array(6).fill(0);
+  scored.forEach(t=>{
+    const i=buckets.findIndex((b,j)=>j<buckets.length-1&&t.amount>=b&&t.amount<buckets[j+1]);
+    if(i<0)return;
+    (['CRITICAL','HIGH'].includes(t.risk)?flag:safe)[i]++;
+  });
+  const max=Math.max(...safe.map((s,i)=>s+flag[i]));
+  const bw=(W-PL-PR)/(labels.length)-8;
+  const sx=i=>PL+i*(W-PL-PR)/labels.length+4;
+  const sy=v=>PT+(1-v/max)*(H-PT-PB);
+  let html='';
+  [0.25,.5,.75,1].forEach(f=>{
+    const y=sy(f*max).toFixed(1);
+    html+=`<line class="grid-line" x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}"/>`;
+    html+=`<text class="ax-label" x="${PL-5}" y="${+y+3}" text-anchor="end">${Math.round(f*max)}</text>`;
+  });
+  labels.forEach((lb,i)=>{
+    const x=sx(i),sh=(safe[i]/max)*(H-PT-PB),fh=(flag[i]/max)*(H-PT-PB);
+    const sy_s=(H-PB-sh).toFixed(1),sy_f=(H-PB-sh-fh).toFixed(1);
+    html+=`<rect class="bar-safe" x="${x.toFixed(1)}" y="${sy_s}" width="${bw}" height="${sh.toFixed(1)}"/>`;
+    html+=`<rect class="bar-flag" x="${x.toFixed(1)}" y="${sy_f}" width="${bw}" height="${fh.toFixed(1)}"/>`;
+    html+=`<text class="ax-label" x="${(x+bw/2).toFixed(1)}" y="${H-PB+16}" text-anchor="middle">${lb}</text>`;
+  });
+  document.getElementById('barSvg').innerHTML=html;
+})();
+
+/* ═══════════════════════════════════════
+   DONUT
+═══════════════════════════════════════ */
+(()=>{
+  const data=[
+    {label:'Critical',val:byCat.CRITICAL.length,color:'#c0392b'},
+    {label:'High',    val:byCat.HIGH.length,    color:'#c05621'},
+    {label:'Medium',  val:byCat.MEDIUM.length,  color:'#b45309'},
+    {label:'Low',     val:byCat.LOW.length,     color:'#00875a'},
+  ];
+  const total=500,cx=65,cy=65,R=52,r=34;
+  let angle=-Math.PI/2;
+  let paths='';
+  data.forEach(d=>{
+    const sweep=d.val/total*2*Math.PI;
+    const ea=angle+sweep;
+    const x1=cx+R*Math.cos(angle),y1=cy+R*Math.sin(angle);
+    const x2=cx+R*Math.cos(ea),  y2=cy+R*Math.sin(ea);
+    const ix1=cx+r*Math.cos(angle),iy1=cy+r*Math.sin(angle);
+    const ix2=cx+r*Math.cos(ea),   iy2=cy+r*Math.sin(ea);
+    const lg=sweep>Math.PI?1:0;
+    paths+=`<path d="M${ix1.toFixed(1)},${iy1.toFixed(1)} L${x1.toFixed(1)},${y1.toFixed(1)} A${R},${R} 0 ${lg},1 ${x2.toFixed(1)},${y2.toFixed(1)} L${ix2.toFixed(1)},${iy2.toFixed(1)} A${r},${r} 0 ${lg},0 ${ix1.toFixed(1)},${iy1.toFixed(1)} Z" fill="${d.color}"/>`;
+    angle=ea;
+  });
+  paths+=`<text x="${cx}" y="${cy-5}" text-anchor="middle" font-family="DM Serif Display,serif" font-size="18" fill="#0f1524">${total}</text>`;
+  paths+=`<text x="${cx}" y="${cy+12}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="#8b96b0" letter-spacing="1.5">TOTAL</text>`;
+  document.getElementById('donutSvg').innerHTML=paths;
+  document.getElementById('donutLeg').innerHTML=data.map(d=>`
+    <div class="dl-item">
+      <div class="dl-swatch" style="background:${d.color}"></div>
+      <div class="dl-info">
+        <div class="dl-name">${d.label} Risk</div>
+        <div class="dl-pct">${(d.val/total*100).toFixed(1)}% of total</div>
+      </div>
+      <div class="dl-count">${d.val}</div>
+    </div>`).join('');
+})();
+
+/* ═══════════════════════════════════════
+   MINI STATS
+═══════════════════════════════════════ */
+[
+  {l:'Mean Amount',v:fmtAmt(mean)},
+  {l:'Median Amount',v:fmtAmt(median)},
+  {l:'Std Deviation',v:fmtAmt(std)},
+  {l:'Total Volume',v:fmtAmt(totalAmt)},
+  {l:'Flagged Volume',v:fmtAmt(flagAmt)},
+].forEach((s,i)=>{
+  document.getElementById('miniStats').insertAdjacentHTML('beforeend',
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 20px;border-bottom:${i<4?'1px solid var(--border)':'none'}">
+      <span style="font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)">${s.l}</span>
+      <span style="font-family:'Fira Code',monospace;font-size:12px;font-weight:500;color:var(--head)">${s.v}</span>
+    </div>`);
+});
+
+/* ═══════════════════════════════════════
+   MODEL METRICS
+═══════════════════════════════════════ */
+[
+  {l:'Precision',v:`${prec}%`,d:'TP ÷ (TP + FP)',c:'green'},
+  {l:'Recall',   v:`${rec}%`, d:'TP ÷ (TP + FN)',c:'blue'},
+  {l:'F1 Score', v:`${f1}%`,  d:'Harmonic Mean',  c:'indigo'},
+  {l:'Accuracy', v:`${acc}%`, d:'Overall Correct', c:'amber'},
+].forEach(m=>document.getElementById('metric4').insertAdjacentHTML('beforeend',
+  `<div class="metric-tile"><div class="mt-label">${m.l}</div><div class="mt-value ${m.c}">${m.v}</div><div class="mt-desc">${m.d}</div></div>`));
+
+/* ═══════════════════════════════════════
+   RULE ROWS
+═══════════════════════════════════════ */
+Object.entries(RULES).forEach(([id,info])=>{
+  const cnt=ruleCounts[id]||0;
+  const pct=(cnt/maxRule*100).toFixed(0);
+  document.getElementById('ruleRows').insertAdjacentHTML('beforeend',
+    `<div class="rule-item">
+      <span class="rule-id">${id}</span>
+      <span class="rule-desc">${info.desc}</span>
+      <div class="rule-bar-wrap"><div class="rule-bar-inner" style="width:${pct}%"></div></div>
+      <span class="rule-count-val">${cnt}</span>
+    </div>`);
+});
+
+/* ═══════════════════════════════════════
+   CONFUSION MATRIX
+═══════════════════════════════════════ */
+document.getElementById('cmGrid').innerHTML=`
+  <div class="cm-cell cm-tp"><div class="cm-cell-label">True Positive</div><div class="cm-cell-val">${tp}</div><div class="cm-cell-desc">Correctly flagged fraud</div></div>
+  <div class="cm-cell cm-fp"><div class="cm-cell-label">False Positive</div><div class="cm-cell-val">${fp}</div><div class="cm-cell-desc">Legitimate, wrongly flagged</div></div>
+  <div class="cm-cell cm-fn"><div class="cm-cell-label">False Negative</div><div class="cm-cell-val">${fn}</div><div class="cm-cell-desc">Missed fraud cases</div></div>
+  <div class="cm-cell cm-tn"><div class="cm-cell-label">True Negative</div><div class="cm-cell-val">${tn}</div><div class="cm-cell-desc">Correctly cleared</div></div>`;
+
+/* ═══════════════════════════════════════
+   TRANSACTIONS TABLE
+═══════════════════════════════════════ */
+const top15=[...scored].filter(t=>['CRITICAL','HIGH'].includes(t.risk)).sort((a,b)=>b.score-a.score).slice(0,15);
+const bClass={CRITICAL:'b-critical',HIGH:'b-high',MEDIUM:'b-medium',LOW:'b-low'};
+document.getElementById('txnBody').innerHTML=top15.map(t=>`
+  <tr>
+    <td class="td-mono td-bold">${t.id}</td>
+    <td class="td-mono">${t.date}</td>
+    <td class="td-mono td-bold">₹${fmt(t.amount)}</td>
+    <td>${t.merchant}</td>
+    <td>${t.location}</td>
+    <td>${t.category}</td>
+    <td>
+      <div class="score-cell">
+        <span class="score-num">${t.score}</span>
+        <div class="score-bar"><div class="score-fill" style="width:${Math.min(t.score,100)}%"></div></div>
+      </div>
+    </td>
+    <td><span class="badge ${bClass[t.risk]}">${t.risk}</span></td>
+    <td><div class="flag-row">${t.flags.map(f=>`<span class="flag">${f}</span>`).join('')}</div></td>
+  </tr>`).join('');
+</script>
+</body>
+</html>
